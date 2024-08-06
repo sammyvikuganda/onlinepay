@@ -1,0 +1,1072 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    document.body.addEventListener('contextmenu', event => event.preventDefault());
+    document.body.addEventListener('selectstart', event => event.preventDefault());
+    document.body.addEventListener('touchstart', event => event.preventDefault());
+  });
+</script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        /* Common styles for all sections */
+        .section {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        /* Home section styles */
+        .home-section {
+            background: linear-gradient(to right, #060cbf, #d42f00);
+            color: white;
+            padding: 20px 40px 50px 20px;
+            display: flex;
+            flex-direction: column;
+            margin-top: -10px;
+        }
+        .home-section .header img {
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            margin-right: 15px;
+            margin-top: 10px;
+        }
+        .home-section .header .user-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        .home-section .header .user-info h2 {
+            margin: 0;
+            font-size: 16px;
+            line-height: 2;
+            white-space: nowrap;
+        }
+        .home-section .header .user-info p {
+            font-size: 12px;
+            color: #ffffff;
+            margin: 0;
+            margin-top: -5px;
+            line-height: 1.5;
+        }
+        .home-section .header .balance-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        .home-section .header .balance-container {
+            display: flex;
+            align-items: center;
+        }
+        .home-section .header .balance {
+            font-size: 17px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .home-section .header .balance .currency {
+            font-weight: normal;
+            margin-right: 5px;
+            font-size: 10px;
+        }
+        .home-section .header .balance .amount {
+            font-weight: bold;
+        }
+        .home-section .header .balance-container img {
+            width: 17px;
+            height: 13px;
+            cursor: pointer;
+            margin-top: -1px;
+            margin-left: 7px;
+        }
+        .floating-button {
+            display: flex;
+            align-items: center;
+        }
+        .floating-button button {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .floating-button button:hover {
+            background-color: #ff4500;
+            color: white;
+        }
+        .main-actions {
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 13px 20px;
+            margin-top: -40px;
+            border-radius: 15px;
+            border: 1px solid #d3d3d3;
+            width: 77%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .main-actions .action {
+            text-align: center;
+            width: 30%;
+            margin: 0 10px;
+            padding: 5px;
+            background-color: #fff;
+            text-decoration: none;
+            color: inherit;
+        }
+        .main-actions .action img {
+            width: 25px;
+            height: 25px;
+            margin-bottom: 5px;
+        }
+        .main-actions .action p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.2;
+            color: black;
+        }
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            background-color: white;
+            padding: 20px 0;
+            margin-top: 10px;
+        }
+        .services a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .services .service {
+            text-align: center;
+            width: 30%;
+            margin-bottom: 20px;
+        }
+        .services .service:nth-child(n+4) {
+            margin-top: 30px;
+        }
+        .services .service img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 5px;
+        }
+        .services .service p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.2;
+            color: grey;
+        }
+        .announcements {
+            background-color: white;
+            padding: 20px 20px 20px;
+            position: relative;
+        }
+        .announcement-text {
+            color: grey;
+            top: -30px;
+            font-size: 18px;
+            margin-bottom: 1px;
+            position: absolute;
+            left: 25px;
+            top: -9px;
+        }
+        .announcements img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: -10px;
+            position: relative;
+        }
+        .notification-icon {
+            position: absolute !important;
+            top: 1px !important;
+            right: 15px !important;
+            width: 20px !important;
+            height: 22px !important;
+            cursor: pointer;
+            margin-right: 1px !important;
+        }
+
+        /* Chat section styles */
+        .chat-section {
+            background-color: #e0f7fa;
+        }
+
+        /* Settings section styles */
+        .settings-section .header {
+            background: linear-gradient(to right, #060cbf, #d42f00);
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .settings-section .header img {
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto;
+            display: block;
+        }
+        .settings-section .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1px;
+        }
+        .settings-section .user-info h2 {
+            margin: 2px 0;
+            font-size: 18px;
+        }
+        .settings-section .user-info p {
+            margin: 5px 0;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        .settings-section .user-details {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        /* Navigation bar styles */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 2px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid #d3d3d3;
+            z-index: 1;
+        }
+        .bottom-nav .nav-item {
+            text-align: center;
+            margin: 0;
+            padding: 2px;
+            cursor: pointer;
+        }
+        .bottom-nav .nav-item img {
+            width: 20px;
+            height: 20px;
+            margin-bottom: 1px;
+            transition: transform 0.3s ease;
+        }
+        .bottom-nav .nav-item.wallet img {
+            width: 55px;
+            height: 55px;
+            margin-bottom: 0;
+            margin-top: -37px;
+            margin-left: 11px;
+            z-index: 2;
+        }
+        .bottom-nav .nav-item.wallet p {
+            position: relative;
+            top: 3px;
+            margin: 0;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 13px;
+            color: #666;
+        }
+        .bottom-nav .nav-item.chat {
+            margin-left: 11px;
+        }
+        .bottom-nav .nav-item p {
+            margin: 0;
+            font-size: 10px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        /* Detail items styles */
+        .detail-item {
+            padding: 16px 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: flex-start;
+        }
+        .detail-item:last-child {
+            border-bottom: 1px solid #ddd;
+        }
+        .detail-item .icon {
+            width: 16px;
+            height: 14px;
+            margin-right: 10px;
+        }
+        .detail-item .info {
+            display: flex;
+            flex-direction: column;
+        }
+        .detail-item .label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+        .detail-item .value {
+            font-size: 14px;
+            color: #555;
+        }
+
+       /* Wallet section styles */
+        .reports-header {
+            background: linear-gradient(to right, #060cbf, #d42f00);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .reports-header h1 {
+            font-size: 20px;
+            margin: 0;
+        }
+        .reports-button-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            background-color: white;
+            position: sticky;
+            top: 80px;
+            z-index: 1000;
+            border-bottom: 1px solid #ddd;
+        }
+        .reports-button-container a {
+            display: block;
+            text-decoration: none;
+            color: black;
+            text-align: center;
+            width: 100px;
+            position: relative;
+        }
+        .reports-button-container img {
+            width: 20px;
+            height: 20px;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        .reports-button-container span {
+            display: block;
+            font-size: 10px;
+            color: black;
+        }
+        .reports-button-container a.active span {
+            color: red;
+        }
+        .reports-button-container a.active::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: red;
+            position: absolute;
+            bottom: -16px;
+            left: 0;
+        }
+        .reports-sections {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            height: calc(100vh - 180px);
+            scroll-snap-type: x mandatory;
+            box-sizing: border-box;
+        }
+        .reports-section-content {
+            flex: 0 0 100vw;
+            height: 100vh;
+            box-sizing: border-box;
+            padding: 20px;
+            background: white;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+        }
+        .reports-section-content h2 {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #666;
+        }
+        .reports-section-content p {
+            margin-top: 10px;
+            font-size: 1.5em;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .reports-section-content .currency-container {
+            display: flex;
+            align-items: center;
+            margin-top: -10px;
+        }
+        .reports-section-content .currency-container .small-text {
+            font-size: 0.55em;
+            color: #666;
+            margin-right: 5px;
+        }
+        .reports-section-content .currency-container .bold {
+            font-weight: bold;
+            font-size: 0.8em;
+            color: red;
+        }
+        .reports-section-content .month-text {
+            font-size: 0.75em;
+            font-weight: bold;
+            color: #666;
+            margin-top: 10px;
+        }
+        .reports-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding-top: 20px;
+            background-color: white;
+        }
+        .reports-tabs input[type="radio"] {
+            display: none;
+        }
+        .reports-tabs label {
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            color: #333;
+            border-radius: 4px;
+            text-align: center;
+            position: relative;
+        }
+        .reports-tabs input[type="radio"]:checked + label {
+            background-color: #d42f00;
+            color: white;
+            border: 1px solid #d42f00;
+        }
+        .reports-tabs input[type="radio"]:checked + label + .content {
+            display: block;
+        }
+        .reports-tabs .content {
+            display: none;
+        }
+
+        .transaction-history-header {
+            display: flex;
+            align-items: center; /* Center vertically */
+            background: linear-gradient(to right, #060cbf, #d42f00);
+            color: white;
+            padding: 40px 20px; /* Increased padding to increase header height */
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            position: relative; /* Make the header relative for absolute positioning */
+        }
+        .transaction-history-header h1 {
+            font-size: 20px;
+            margin: 0;
+            position: absolute; /* Position the title absolutely */
+            left: 50%;
+            transform: translateX(-50%); /* Center the title horizontally */
+        }
+        .refresh-icon {
+            width: 18px; /* Reduced size */
+            height: 18px; /* Reduced size */
+            cursor: pointer;
+            position: absolute; /* Position the icon absolutely */
+            right: 20px; /* Space from the right edge */
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: transparent;
+            margin: 0;
+            position: relative; /* Position the cancel icon relative to the search bar */
+        }
+        .search-bar input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-top-left-radius: 2px;  /* Reduced radius */
+            border-bottom-left-radius: 2px;  /* Reduced radius */
+            box-sizing: border-box;
+            border-right: none;
+            outline: none; /* Removes the default focus outline */
+        }
+        .search-bar input::placeholder {
+            font-size: 14px; /* Reduced size for the placeholder text */
+            color: #666; /* Optional: Change the color of the placeholder text */
+        }
+        .search-bar button {
+            padding: 10px;
+            background-color: #cccccc;
+            border: 1px solid #ddd;
+            border-left: none;
+            border-top-right-radius: 2px;  /* Reduced radius */
+            border-bottom-right-radius: 2px;  /* Reduced radius */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .search-bar button img {
+            width: 19px;
+            height: 19px;
+            background-color: transparent;
+        }
+        .cancel-icon {
+            width: 10px;
+            height: 10px;
+            cursor: pointer;
+            position: absolute; /* Position the cancel icon absolutely */
+            right: 90px; /* Space from the right edge of the search bar */
+            display: none; /* Hidden by default */
+        }
+        .search-bar input[type="text"]:focus + .cancel-icon,
+        .search-bar input[type="text"]:not(:placeholder-shown) + .cancel-icon {
+            display: block; /* Show the cancel icon when the input is focused or has text */
+        }
+    </style>
+</div>
+
+    <script>
+        // Retrieve the user ID from local storage
+const userId = localStorage.getItem('userId');
+
+if (!userId) {
+    // Handle the case where the user ID is not found
+    window.location.href = 'login.html'; // Redirect to login or show an error message
+}
+
+// Function to load dynamic content
+function loadContent(content) {
+    document.getElementById('content').innerHTML = content;
+}
+
+        function goToHome() {
+            const homeContent = `
+                <div class="home-section">
+                    <div class="header">
+                        <div style="display: flex; align-items: center;">
+                            <img src="https://i.imgur.com/wnyjoci.png" alt="User">
+                            <div class="user-info">
+                                <h2 id="user-name">Hello</h2>
+                                <p>Every Small Step Makes a Big Impact.</p>
+                            </div>
+                            <a href="go:AB">
+                                <img src="https://i.imgur.com/HwHNPmV.png" alt="Notifications" class="notification-icon">
+                            </a>
+                        </div>
+                        <div class="balance-wrapper">
+                            <div class="balance-container">
+                                <div id="balance" class="balance">
+                                    <span class="currency">UGX</span>
+                                    <span id="balance-amount" class="amount">...</span>
+                                    <span id="balance-placeholder" class="amount" style="display: none;">•••••••</span>
+                                </div>
+                                <img id="toggle-icon" src="https://i.imgur.com/i6Vez9y.png" alt="Toggle Balance">
+                            </div>
+                            <div class="floating-button">
+                                <button onclick="goToFloat()">Add float</button>
+                            </div>
+                        </div>
+
+</div>
+
+                    </div>
+<div class="main-actions">
+    <a href="go:A" class="action">
+        <img src="https://i.imgur.com/SCBABao.png" alt="Withdraw">
+        <p>Withdraw</p>
+    </a>
+    <a href="go:A" class="action">
+        <img src="https://i.imgur.com/jnpT9nG.png" alt="Pay">
+        <p>Pay</p>
+    </a>
+    <a href="go:A" class="action">
+        <img src="https://i.imgur.com/iKP1DBC.png" alt="Deposit">
+        <p>Deposit</p>
+    </a>
+</div>
+</div>
+<div class="services">
+    <a href="go:A" class="service">
+        <img src="https://i.imgur.com/FQMRZV4.png" alt="Airtime">
+        <p>Airtime</p>
+    </a>
+    <a href="go:A" class="service">
+        <img src="https://i.imgur.com/rp7LfnC.png" alt="Data/voice">
+        <p>Data/voice</p>
+    </a>
+    <a href="go:A" class="service">
+        <img src="https://i.imgur.com/hzl872O.png" alt="Umeme">
+        <p>Umeme</p>
+    </a>
+    <a href="go:A" class="service">
+        <img src="https://i.imgur.com/rp7LfnC.png" alt="Water">
+        <p>Water</p>
+    </a>
+    <a href="go:A" class="service">
+        <img src="https://i.imgur.com/w854N9E.png" alt="Tv">
+        <p>Tv</p>
+    </a>
+    <a href="go:A" class="service">
+        <img src="https://i.imgur.com/mcoyrEZ.png" alt="Bills">
+        <p>Bills</p>
+    </a>
+</div>
+<div class="announcements">
+    <div class="announcement-text">Announcement</div>
+    <img src="https://i.imgur.com/6I54QwY.png" alt="Announcement" onclick="goToAnnouncement()">
+</div>
+                </div>
+            `;
+            loadContent(homeContent);
+            fetchUserDetails();
+        }
+
+        async function fetchUserDetails() {
+    function formatNumberWithCommas(number) {
+        return Number(number).toLocaleString();
+    }
+
+    try {
+        // Fetch user name
+        const nameResponse = await fetch(`https://suppay-o7tod637r-sammyviks-projects.vercel.app/api/user-first-name/${userId}`);
+        if (!nameResponse.ok) throw new Error('Network response for first name was not ok');
+        const nameData = await nameResponse.json();
+        if (!nameData.firstName) throw new Error('No firstName field in name data');
+        document.getElementById('user-name').textContent = `Hello ${nameData.firstName || 'User'}`;
+
+        // Fetch balance
+        const balanceResponse = await fetch(`https://suppay-o7tod637r-sammyviks-projects.vercel.app/api/user-balance/${userId}`);
+        if (!balanceResponse.ok) throw new Error('Network response for balance was not ok');
+        const balanceData = await balanceResponse.json();
+        if (typeof balanceData.balance === 'undefined') throw new Error('No balance field in balance data');
+
+        const formattedBalance = formatNumberWithCommas(balanceData.balance);
+        document.getElementById('balance-amount').textContent = formattedBalance;
+
+    } catch (error) {
+        console.error('Error fetching user details: ', error.message);
+        document.getElementById('balance-amount').textContent = '✈︎'; // Error message in balance field
+        document.getElementById('user-name').textContent = 'Error fetching username';
+    }
+}
+
+function toggleBalance() {
+    const balanceAmount = document.getElementById('balance-amount');
+    const balancePlaceholder = document.getElementById('balance-placeholder');
+    const toggleIcon = document.getElementById('toggle-icon');
+
+    if (balanceAmount.style.display === 'none') {
+        balanceAmount.style.display = 'block';
+        balancePlaceholder.style.display = 'none';
+        toggleIcon.src = 'https://i.imgur.com/i6Vez9y.png'; // Change to show balance
+    } else {
+        balanceAmount.style.display = 'none';
+        balancePlaceholder.style.display = 'block';
+        toggleIcon.src = 'https://i.imgur.com/i6Vez9y.png'; // Change to hide balance
+    }
+}
+        function goToSettings() {
+            const settingsContent = `
+                <div class="settings-section">
+                    <div class="header">
+                        <img src="https://i.imgur.com/wnyjoci.png" alt="User">
+                        <div class="user-info">
+                            <h2 id="full-name">Loading...</h2>
+                            <p id="phone-number">Loading...</p>
+                        </div>
+                    </div>
+                    <div class="user-details">
+                        <div class="detail-item">
+                            <img src="https://i.imgur.com/Yc2uN8z.png" alt="User ID Icon" class="icon">
+                            <div class="info">
+                                <span class="label">User ID</span>
+                                <span id="user-id" class="value">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <img src="https://i.imgur.com/Rg4Mfag.png" alt="Email Icon" class="icon">
+                            <div class="info">
+                                <span class="label">Email</span>
+                                <span id="email-address" class="value">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <img src="https://i.imgur.com/JrS6Cqn.png" alt="KYC Icon" class="icon">
+                            <div class="info">
+                                <span class="label">KYC</span>
+                                <span id="kyc-status" class="value">Loading...</span>
+                            </div>
+                        </div>
+                        <div id="change-pin-section" class="detail-item change-pin">
+                            <img src="https://i.imgur.com/RctBcya.png" alt="Change PIN Icon" class="icon">
+                            <div class="info">
+                                <span class="label">PIN</span>
+                                <span class="value">Change PIN</span>
+                            </div>
+                        </div><br><br><br><br><br>
+</div>
+
+                    </div>
+                </div>
+            `;
+            loadContent(settingsContent);
+
+            fetchUserDetailsSettings();
+        }
+
+        async function fetchUserDetailsSettings() {
+            try {
+                const response = await fetch(`https://suppay-o7tod637r-sammyviks-projects.vercel.app/api/user-details/${userId}`);
+                if (!response.ok) throw new Error('Network response for user details was not ok');
+                const userData = await response.json();
+                document.getElementById('user-id').textContent = userId;
+                document.getElementById('phone-number').textContent = userData.phoneNumber ? `+256 ${userData.phoneNumber.slice(1)}` : 'N/A';
+                document.getElementById('kyc-status').textContent = userData.kyc || 'Pending';
+                document.getElementById('email-address').textContent = userData.email || 'N/A';
+                document.getElementById('full-name').textContent = userData.fullName || 'N/A';
+            } catch (error) {
+                console.error('Error fetching user details: ', error.message);
+                alert("Error fetching user details: " + error.message);
+            }
+        
+
+            async function fetchUserDetails() {
+                
+
+                try {
+                    const response = await fetch(`https://suppay-o7tod637r-sammyviks-projects.vercel.app/api/user-details/${userId}`);
+                    if (!response.ok) {
+                        throw new Error('Network response for user details was not ok');
+                    }
+                    const userData = await response.json();
+                    console.log('Fetched user data:', userData);
+
+                    // Populate user details
+                    document.getElementById('user-id').textContent = userId;
+                    document.getElementById('phone-number').textContent = userData.phoneNumber ? `+256 ${userData.phoneNumber.slice(1)}` : 'N/A';
+                    document.getElementById('kyc-status').textContent = userData.kyc || 'Pending';
+                    document.getElementById('email-address').textContent = userData.email || 'N/A';
+                    
+                    // Use fullName directly from API response
+                    document.getElementById('full-name').textContent = userData.fullName || 'N/A';
+                } catch (error) {
+                    console.error('Error fetching user details: ', error.message);
+                    alert("Error fetching user details: " + error.message);
+                }
+            }
+
+            async function handleChangePin() {
+
+
+
+                const oldPin = prompt('Enter your current PIN:');
+                if (oldPin === null) return; // User canceled the prompt
+
+                try {
+                    // Verify old PIN
+                    const verifyResponse = await fetch('https://suppay-o7tod637r-sammyviks-projects.vercel.app/api/verify-pin', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ pin: oldPin, userId }),
+                    });
+
+                    if (!verifyResponse.ok) {
+                        throw new Error('Old PIN verification failed');
+                    }
+
+                    const verifyResult = await verifyResponse.json();
+
+                    if (verifyResult.valid) {
+                        const newPin = prompt('Enter your new PIN:');
+                        if (newPin === null) return; // User canceled the prompt
+
+                        const confirmPin = prompt('Confirm your new PIN:');
+                        if (confirmPin === null) return; // User canceled the prompt
+
+                        if (newPin === confirmPin) {
+                            try {
+                                const response = await fetch('https://suppay-o7tod637r-sammyviks-projects.vercel.app/api/update-user', {
+                                    method: 'PATCH',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ pin: newPin, userId }),
+                                });
+
+                                if (!response.ok) {
+                                    throw new Error('Network response for PIN update was not ok');
+                                }
+
+                                const result = await response.json();
+                                alert(result.message || 'PIN updated successfully');
+                            } catch (error) {
+                                console.error('Error updating PIN: ', error.message);
+                                alert('Failed to update PIN: ' + error.message);
+                            }
+                        } else {
+                            alert('New PIN and confirmation do not match');
+                        }
+                    } else {
+                        alert('Old PIN is incorrect');
+                    }
+                } catch (error) {
+                    console.error('Error verifying old PIN: ', error.message);
+                    alert('Failed to verify old PIN: ' + error.message);
+                }
+            }
+
+            fetchUserDetails();
+
+            // Attach click event to the Change PIN section
+            document.getElementById('change-pin-section').addEventListener('click', handleChangePin);
+        }
+
+
+        function goToChat() {
+            const chatContent = `
+                <div class="section chat-section">
+                    <h1>Chat</h1>
+                    <p>This is the chat section where you can communicate with other users.</p>
+                </div>
+            `;
+            loadContent(chatContent);
+        }
+
+        function goToWallet() {
+            const walletContent = `
+                  <div class="transaction-history-header">
+        <h1>Transaction History</h1>
+        <img src="https://i.imgur.com/fkbUPY0.png" alt="Refresh Icon" class="refresh-icon">
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search phone number">
+        <img src="https://i.imgur.com/1UzjqE1.png" alt="Cancel Icon" class="cancel-icon" id="cancelIcon">
+        <button type="submit">
+            <img src="https://i.imgur.com/nH95iP0.png" alt="Search Icon">
+        </button>
+    </div>
+                </div>
+            `;
+            loadContent(walletContent);
+// JavaScript to handle clearing of the input field when cancel icon is clicked
+        document.getElementById('cancelIcon').addEventListener('click', function() {
+            var inputField = document.getElementById('searchInput');
+            inputField.value = ''; // Clear the input field
+            inputField.focus(); // Optionally refocus the input field
+        });
+        }
+
+        function goToReports() {
+            const reportsContent = `
+                <div class="reports-section">
+                    <div class="reports-header">
+        <h1>Reports</h1>
+    </div>
+    <div class="reports-button-container">
+        <a href="#commission" class="active">
+            <img src="https://i.imgur.com/yo3hQeT.png" alt="Commission">
+            <span>Commission</span>
+        </a>
+        <a href="#performance">
+            <img src="https://i.imgur.com/pRRpxyz.png" alt="Performance">
+            <span>Performance</span>
+        </a>
+        <a href="#overdraft">
+            <img src="https://i.imgur.com/SzajaoD.png" alt="Overdraft">
+            <span>Overdraft</span>
+        </a>
+    </div>
+    <div class="reports-sections">
+        <div id="commission" class="reports-section-content">
+            <h2 class="small">Current Commission</h2>
+            <p>
+                <span class="currency-container">
+                    <span class="small-text">UGX</span>
+                    <span class="bold">0</span>
+                </span>
+                <span id="commission-month" class="month-text"></span>
+            </p>
+        </div>
+        <div id="performance" class="reports-section-content">
+            <div class="reports-tabs">
+                <input type="radio" id="daily" name="performance" checked>
+                <label for="daily">Daily</label>
+                <input type="radio" id="weekly" name="performance">
+                <label for="weekly">Weekly</label>
+                <input type="radio" id="monthly" name="performance">
+                <label for="monthly">Monthly</label>
+            </div>
+            <h2 id="performance-heading"></h2>
+            <p>
+                <span class="currency-container">
+                    <span class="small-text">UGX</span>
+                    <span class="bold">0</span>
+                </span>
+            </p>
+        </div>
+        <div id="overdraft" class="reports-section-content">
+            <h2>Advanced Amount</h2>
+            <p>
+                <span class="currency-container">
+                    <span class="small-text">UGX</span>
+                    <span class="bold">0</span>
+                </span>
+            </p>
+        </div>
+    </div>
+                </div>
+            `;
+            loadContent(reportsContent);
+        const sectionsContainer = document.querySelector('.reports-sections');
+            const buttons = document.querySelectorAll('.reports-button-container a');
+            const performanceHeading = document.getElementById('performance-heading');
+            const commissionMonth = document.getElementById('commission-month');
+            const tabs = document.querySelectorAll('.reports-tabs input[type="radio"]');
+
+            function updateActiveButton() {
+                const sections = document.querySelectorAll('.reports-section-content');
+                let activeSection = sections[0];
+
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.left >= 0 && rect.left < window.innerWidth) {
+                        activeSection = section;
+                    }
+                });
+
+                buttons.forEach(button => {
+                    button.classList.remove('active');
+                });
+
+                const activeButton = document.querySelector(`.reports-button-container a[href="#${activeSection.id}"]`);
+                if (activeButton) {
+                    activeButton.classList.add('active');
+                }
+            }
+
+            function getMonthName(monthIndex) {
+                const months = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+                return months[monthIndex];
+            }
+
+            function updatePerformanceHeading() {
+                const now = new Date();
+                const monthName = getMonthName(now.getMonth());
+                const day = now.getDate();
+                
+                const dailyTab = document.getElementById('daily');
+                const weeklyTab = document.getElementById('weekly');
+                const monthlyTab = document.getElementById('monthly');
+
+                if (dailyTab.checked) {
+                    performanceHeading.textContent = "Commission (Today)";
+                } else if (weeklyTab.checked) {
+                    performanceHeading.textContent = "Commission (This Week)";
+                } else if (monthlyTab.checked) {
+                    performanceHeading.textContent = `Commission (${monthName})`;
+                }
+            }
+
+            function updateCommissionMonth() {
+                const now = new Date();
+                const monthName = getMonthName(now.getMonth());
+                const day = now.getDate();
+                commissionMonth.textContent = `${monthName} ${day}`;
+            }
+
+            sectionsContainer.addEventListener('scroll', updateActiveButton);
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+                    }
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            tabs.forEach(tab => {
+                tab.addEventListener('change', updatePerformanceHeading);
+            });
+
+            // Set initial performance heading and commission month based on the default selected tab
+            updatePerformanceHeading();
+            updateCommissionMonth();
+
+            window.addEventListener('resize', updateActiveButton);
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            goToHome(); // Load the home content by default
+
+            document.getElementById('toggle-icon').addEventListener('click', toggleBalance);
+        });
+    </script>
+</head>
+<body>
+    <div id="content"></div>
+    <div class="bottom-nav">
+        <div class="nav-item" onclick="goToHome()">
+            <img src="https://i.imgur.com/PJTaj8d.png" alt="Home">
+            <p>Home</p>
+        </div>
+        <div class="nav-item chat" onclick="goToChat()">
+            <img src="https://i.imgur.com/tlSmgYO.png" alt="Chat">
+            <p>Chat</p>
+        </div>
+        <div class="nav-item wallet" onclick="goToWallet()">
+            <img src="https://i.imgur.com/gpRfhJT.png" alt="Wallet">
+            <p>Wallet</p>
+        </div>
+        <div class="nav-item reports" onclick="goToReports()">
+            <img src="https://i.imgur.com/iQfe2Wo.jpeg" alt="Reports">
+            <p>Reports</p>
+        </div>
+        <div class="nav-item settings" onclick="goToSettings()">
+            <img src="https://i.imgur.com/TS9TDbI.png" alt="Settings">
+            <p>Settings</p>
+        </div>
+</div>
+
+
+    </div>
+</body>
+</html>
